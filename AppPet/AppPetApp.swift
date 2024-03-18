@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct AppPetApp: App {
+    @State var isPresenting = true
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Home(presentSideMenu: $isPresenting)
         }
     }
 }
