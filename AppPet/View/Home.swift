@@ -10,7 +10,7 @@ import SwiftUI
 
 struct Home: View {
     @Binding var presentSideMenu: Bool
-     
+    @State var listPets: [String]
      var body: some View {
          ZStack{
              Color.colorBackground.edgesIgnoringSafeArea(.all)
@@ -26,14 +26,18 @@ struct Home: View {
                  
                  VStack{
                      SearchView(foreground: "Search here", urlIconSearch: "magnifyingglass", urlIconImage: "location.circle.fill").padding(.top,40)
-                     Spacer()
-                     HStack {
-                         Text("Home View")
-                         
+                     Text("Category").font(.title2).fontWeight(.heavy).frame(width: 350,alignment: .leading).padding()
+                     ScrollView(.horizontal){
+                         HStack {
+                             ForEach(listPets, id: \.self) { pet in
+                                 CategoryView(name: pet)
+                             }
+                             
+                         }
                      }
                      
                      Spacer()
-                 }.frame(maxWidth: .infinity,maxHeight:.infinity).background().cornerRadius(60)
+                 }.frame(maxWidth: .infinity,maxHeight:.infinity).background().clipShape(RoundedCorner(radius: 60, corners: [.topLeft, .topRight]))
              }.frame(maxWidth: .infinity,maxHeight: .infinity)
             
              
@@ -61,7 +65,22 @@ extension UIColor {
 extension Color {
     static let colorBackground = Color(red: 250/255, green: 224/255, blue: 249/255)
 }
+struct RoundedCorner: Shape {
+    var radius: CGFloat
+    var corners: UIRectCorner
+
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(
+            roundedRect: rect,
+            byRoundingCorners: corners,
+            cornerRadii: CGSize(width: radius, height: radius))
+        
+        return Path(path.cgPath)
+    }
+}
+
 #Preview {
     @State var isPresenting = false
-    return Home(presentSideMenu: $isPresenting)
+    var listPets = ["All", "Dogs","Cat","Bird","Fish","Race"]
+    return Home(presentSideMenu: $isPresenting,listPets: listPets)
 }

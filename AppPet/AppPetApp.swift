@@ -12,7 +12,7 @@ struct AppPetApp: App {
     @State var isPresenting = true
     var body: some Scene {
         WindowGroup {
-            Home(presentSideMenu: $isPresenting)
+            Home(presentSideMenu: $isPresenting,listPets: ["All", "Dogs","Cat","Bird","Fish","Race"])
         }
     }
 }

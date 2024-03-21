@@ -15,7 +15,7 @@ struct MainTabbedView: View {
             ZStack{
                 
                 TabView(selection: $selectedSideMenuTab) {
-                    Home(presentSideMenu: $presentSideMenu)
+                    Home(presentSideMenu: $presentSideMenu, listPets: ["All", "Dogs","Cat","Bird","Fish","specials"])
                         .tag(0)
                 }
                 .background(.yellow)
